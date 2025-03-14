@@ -12,14 +12,10 @@ neonConfig.webSocketConstructor = ws;
 // Type definitions
 declare global {
   // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined
+  var prisma: PrismaClient | undefined;
 }
 
-const connectionString = `${process.env.DATABASE_URL}`;
-
-const pool = new Pool({ connectionString });
-const adapter = new PrismaNeon(pool);
-const prisma = global.prisma || new PrismaClient({ adapter });
+const prisma = global.prisma || new PrismaClient();
 
 if (process.env.NODE_ENV === 'development') global.prisma = prisma;
 
