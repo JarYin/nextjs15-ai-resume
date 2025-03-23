@@ -10,9 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { EditorFromProps } from "@/lib/types";
 import { summarySchema, SummaryValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCompletion } from 'ai/react';
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import GenerateSummaryButton from "./GenerateSummaryButton";
 
 export default function SummaryForm({
   resumeData,
@@ -25,9 +25,12 @@ export default function SummaryForm({
     },
   });
 
-  const {complete, completion, isLoading} = useCompletion({
-    api: '/api/chat',
-  })
+  // const {complete, completion} = useCompletion({
+  //   api: '/api/chat',
+  //   body: {
+  //     messages: [{ role: 'user', content: resumeData.summary || "" }],
+  //   },
+  // })
 
 
 
@@ -58,19 +61,23 @@ export default function SummaryForm({
               <FormItem>
                 <FormLabel className="sr-only">Professional summary</FormLabel>
                 <FormControl>
-                  <Textarea {...field} value={completion} placeholder="A brief, engaging text about yourself." />
+                  <Textarea {...field} placeholder="A brief, engaging text about yourself." />
                 </FormControl>
                 <FormMessage />
+                <GenerateSummaryButton
+                  resumeData={resumeData}
+                  onSummaryGenerated={(summary) => form.setValue("summary", summary)}
+                />
               </FormItem>
             )}
           />
-          <button
+          {/* <button
             type="button"
-            onClick={() => complete("ราคานี้เท่าไหร่")}
+            onClick={() => complete(resumeData.summary || "")}
             className="btn btn-primary"
           >
             generate
-          </button>
+          </button> */}
         </form>
       </Form>
     </div>

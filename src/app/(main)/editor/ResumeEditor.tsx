@@ -8,8 +8,9 @@ import Breadcrumbs from "./Breadcrumbs";
 import Footer from "./Footer";
 import ResumePreviewSection from "./ResumePreviewSection";
 import { steps } from "./steps";
-// import useAutoSaveResume from "./useAutoSaveResume";
+import useAutoSaveResume from "./useAutoSaveResume";
 import { ResumeServerData } from "@/lib/types";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
 
 interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
@@ -26,9 +27,9 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
 
   const currentStep = searchParams.get("step") || steps[0].key;
 
-  // const { isSaving, hasUnSavedChanges } = useAutoSaveResume(resumeData);
+  const { isSaving, hasUnSavedChanges } = useAutoSaveResume(resumeData);
 
-  // useUnloadWarning(hasUnSavedChanges);
+  useUnloadWarning(hasUnSavedChanges);
 
   function setStep(key: string) {
     const newSearchParams = new URLSearchParams(searchParams);
@@ -78,7 +79,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
         setCurrentStep={setStep}
         showSmResumePreview={showSmResumePreview}
         setShowSmResumePreview={setShowSmResumePreview}
-        // isSaving={isSaving}
+        isSaving={isSaving}
       />
     </div>
   );
