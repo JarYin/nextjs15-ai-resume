@@ -25,15 +25,6 @@ export default function SummaryForm({
     },
   });
 
-  // const {complete, completion} = useCompletion({
-  //   api: '/api/chat',
-  //   body: {
-  //     messages: [{ role: 'user', content: resumeData.summary || "" }],
-  //   },
-  // })
-
-
-
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
@@ -71,13 +62,6 @@ export default function SummaryForm({
               </FormItem>
             )}
           />
-          {/* <button
-            type="button"
-            onClick={() => complete(resumeData.summary || "")}
-            className="btn btn-primary"
-          >
-            generate
-          </button> */}
         </form>
       </Form>
     </div>

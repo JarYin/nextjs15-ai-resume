@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import {  neonConfig } from '@neondatabase/serverless';
@@ -10,7 +11,6 @@ neonConfig.webSocketConstructor = ws;
 
 // Type definitions
 declare global {
-  // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 
