@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import {  neonConfig } from '@neondatabase/serverless';
+import { neonConfig } from '@neondatabase/serverless';
 
 import ws from 'ws';
 neonConfig.webSocketConstructor = ws;
