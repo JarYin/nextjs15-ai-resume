@@ -1,16 +1,16 @@
 "use client";
 
+import { cn, mapToResumeValues } from "@/lib/utils";
+import { ResumeValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
-import { steps } from "./steps";
+import { useState } from "react";
 import Breadcrumbs from "./Breadcrumbs";
 import Footer from "./Footer";
-import { ResumeValues } from "@/lib/validation";
-import { useState } from "react";
 import ResumePreviewSection from "./ResumePreviewSection";
-import { cn, mapToResumeValues } from "@/lib/utils";
-import useUnloadWarning from "@/hooks/useUnloadWarning";
+import { steps } from "./steps";
 import useAutoSaveResume from "./useAutoSaveResume";
 import { ResumeServerData } from "@/lib/types";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
 
 interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
