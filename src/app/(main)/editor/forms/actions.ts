@@ -1,10 +1,25 @@
 "use server"
 
+import { canUseAITools } from "@/lib/permission";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { GenerateExperienceInput, generateExperienceSchema, GenerateSummaryInput, generateSummarySchema, WorkExperience } from "@/lib/validation";
+import { auth } from "@clerk/nextjs/server";
 import { openrouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
 
 export async function generateSummary(input: GenerateSummaryInput) {
+    const {userId} = await auth()
+
+    if (!userId) {
+        throw new Error("User not authenticated")
+    }
+
+    const subscriptionLevel = await getUserSubscriptionLevel(userId);
+
+    if(!canUseAITools(subscriptionLevel)) {
+        throw new Error("Upgrade your subscription to use this feature")
+    }
+
     const { jobTitle, workExperience, educations, skills } = generateSummarySchema.parse(input);
 
     const systemMessage = `
@@ -54,6 +69,18 @@ export async function generateSummary(input: GenerateSummaryInput) {
 }
 
 export async function GenerateExperience(input: GenerateExperienceInput) {
+    const {userId} = await auth()
+
+    if (!userId) {
+        throw new Error("User not authenticated")
+    }
+
+    const subscriptionLevel = await getUserSubscriptionLevel(userId);
+
+    if(!canUseAITools(subscriptionLevel)) {
+        throw new Error("Upgrade your subscription to use this feature")
+    }
+    
     const { description } = generateExperienceSchema.parse(input);
 
     const systemMessage = `
