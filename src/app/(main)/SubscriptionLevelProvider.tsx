@@ -1,3 +1,4 @@
+"use client"
 import { SubscriptionLevel } from "@/lib/subscription";
 import { createContext, ReactNode, useContext } from "react";
 
