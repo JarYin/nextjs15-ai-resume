@@ -30,8 +30,6 @@ export async function saveResume(values: ResumeValues) {
         }
     }
 
-    // TODO: check resume count for non-premium users
-
     const existingResume = id ? await prisma.resume.findUnique({ where: { id, userId } }) : null;
 
     if (id && !existingResume) {

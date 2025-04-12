@@ -12,8 +12,8 @@ export type generalInfoValues = z.infer<typeof generalInfoSchema>;
 export const personalInfoSchema = z.object({
     photo: z.custom<File | undefined>().refine((file) => !file || (file instanceof File && file.type.startsWith("image/")),
         "Must be an image file."
-    ).refine((file) => !file || file.size < 1024 * 1024 * 4,
-        "File must be less than 4MB"
+    ).refine((file) => !file || file.size < 1024 * 1024 * 10,
+        "File must be less than 10MB"
     ),
     firstName: optionalString,
     lastName: optionalString,
