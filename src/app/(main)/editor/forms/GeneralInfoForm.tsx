@@ -14,24 +14,27 @@ import { Input } from "@/components/ui/input";
 import { EditorFromProps } from "@/lib/types";
 import { useEffect } from "react";
 
-export default function GeneralInfoForm({resumeData, setResumeData}:EditorFromProps) {
+export default function GeneralInfoForm({
+  resumeData,
+  setResumeData,
+}: EditorFromProps) {
   const form = useForm<generalInfoValues>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: resumeData.title || "",
+      description: resumeData.description || "",
     },
   });
 
   useEffect(() => {
-      const { unsubscribe } = form.watch(async (values) => {
-        const isValid = await form.trigger();
-        if (!isValid) return;
-        setResumeData({...resumeData, ...values})
-      });
-      return unsubscribe;
-    }, [form, resumeData, setResumeData]);
-    
+    const { unsubscribe } = form.watch(async (values) => {
+      const isValid = await form.trigger();
+      if (!isValid) return;
+      setResumeData({ ...resumeData, ...values });
+    });
+    return unsubscribe;
+  }, [form, resumeData, setResumeData]);
+
   return (
     <div className="max-w-xl mx-auto space-y-6">
       <div className="space-y-1.5 text-center">
@@ -62,9 +65,15 @@ export default function GeneralInfoForm({resumeData, setResumeData}:EditorFromPr
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="A resume for my next job" autoFocus />
+                  <Input
+                    {...field}
+                    placeholder="A resume for my next job"
+                    autoFocus
+                  />
                 </FormControl>
-                <FormDescription>Describe what this resume is for.</FormDescription>
+                <FormDescription>
+                  Describe what this resume is for.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
