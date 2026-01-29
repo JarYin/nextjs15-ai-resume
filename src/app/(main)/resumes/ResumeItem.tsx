@@ -1,6 +1,5 @@
 "use client";
 
-import ResumePreview from "@/components/ResumePreview";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
