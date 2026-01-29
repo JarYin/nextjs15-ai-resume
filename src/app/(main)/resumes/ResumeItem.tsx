@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dialog";
 import LoadingButton from "@/components/LoadingButton";
 import {useReactToPrint} from "react-to-print";
+import { resumeTemplates } from "../templates/registry";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -40,6 +41,10 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   }) 
   const wasUpdated = resume.updatedAt !== resume.createdAt;
 
+  const templateId = (resume.templateId || "modern-1") as keyof typeof resumeTemplates;
+  const TemplateComponent = resumeTemplates[templateId] || resumeTemplates["modern-1"];
+
+  const resumeDataValues = mapToResumeValues(resume);
   return (
     <div className="group relative border rounded-lg border-transparent hover:border-border transition-colors bg-secondary p-3">
       <div className="space-y-3">
@@ -62,8 +67,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           href={`/editor?resumeId=${resume.id}`}
           className="relative inline-block w-full"
         >
-          <ResumePreview
-            resumeData={mapToResumeValues(resume)}
+          <TemplateComponent
+            resumeData={resumeDataValues}
             contentRef={contentRef}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />

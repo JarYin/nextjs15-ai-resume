@@ -1,8 +1,9 @@
-import ResumePreview from "@/components/ResumePreview";
 import { ResumeValues } from "@/lib/validation";
 import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
+import TemplateStyleButton from "./TemplateStyleButton";
+import { resumeTemplates } from "../templates/registry";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -15,8 +16,12 @@ export default function ResumePreviewSection({
   setResumeData,
   className,
 }: ResumePreviewSectionProps) {
+  const templateId = (resumeData.templateId) as keyof typeof resumeTemplates;
+  const TemplateComponent = resumeTemplates[templateId] || resumeTemplates["modern-1"];
   return (
-    <div className={cn("group relative hidden md:w-1/2 md:flex w-full", className)}>
+    <div
+      className={cn("group relative hidden md:w-1/2 md:flex w-full", className)}
+    >
       <div className="opacity-50 xl:opacity-100 transition-opacity group-hover:opacity-100 absolute left-1 top-1 flex flex-col gap-3 flex-none lg:left-3 lg:top-3">
         <ColorPicker
           color={resumeData.colorHex}
@@ -30,12 +35,14 @@ export default function ResumePreviewSection({
             setResumeData({ ...resumeData, borderStyle: borderStyle })
           }
         />
+        <TemplateStyleButton
+          onChange={(templateId) =>
+            setResumeData({ ...resumeData, templateId })
+          }
+        />
       </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3">
-        <ResumePreview
-          resumeData={resumeData}
-          className="max-w-2xl shadow-md"
-        />
+        <TemplateComponent resumeData={resumeData} className="max-w-2xl shadow-md" />
       </div>
     </div>
   );

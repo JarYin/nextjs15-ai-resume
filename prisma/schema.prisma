@@ -23,6 +23,7 @@ model Resume {
   photoUrl   String?
   colorHex   String @default("#000000")
   borderStyle String @default("squircle")
+  templateId String @default("modern-1")
   summary    String?
   firstName  String?
   lastName   String?
@@ -81,7 +82,7 @@ model UserSubscription {
   userId String @unique
   stripeCustomerId String @unique
   stripeSubscriptionId String @unique
-  stripePriceId String @unique
+  stripePriceId String
   stripeCurrentPeriodEnd DateTime
   stripeCancelAtPeriodEnd Boolean @default(false)
 
