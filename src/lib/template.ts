@@ -9,7 +9,7 @@ export const templates = [
     color: "bg-slate-100",
     img: resumePreviewModern2
   },
-  //   { id: "pro-1", name: "Pro Minimal", category: "professional", color: "bg-zinc-100" },
+    { id: "pro-1", name: "Pro Minimal", category: "professional", color: "bg-zinc-100" },
   //   { id: "pro-2", name: "Executive", category: "professional", color: "bg-stone-100" },
   //   { id: "creative-1", name: "Bold Peach", category: "creative", color: "bg-orange-100" },
   //   { id: "creative-2", name: "Artist", category: "creative", color: "bg-purple-100" },

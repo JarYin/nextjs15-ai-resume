@@ -8,4 +8,7 @@ export const resumeTemplates = {
   "modern-2": dynamic(() => import("./ModernTwoTemplate"), {
     loading: () => <Skeleton />,
   }),
+  "pro-1": dynamic(() => import("./ModernTwoTemplate"), {
+    loading: () => <Skeleton />,
+  }),
 };
