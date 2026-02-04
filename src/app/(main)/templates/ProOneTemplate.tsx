@@ -51,10 +51,6 @@ function LeftColumn({ resumeData }: ResumePreviewSectionProps) {
     photo,
     firstName,
     lastName,
-    phone,
-    email,
-    city,
-    country,
     colorHex,
     borderStyle,
     skills,
@@ -206,7 +202,7 @@ function SkillsSection({
 }
 
 function RightColumn({ resumeData }: ResumePreviewSectionProps) {
-  const { jobTitle, summary, workExperience, educations, colorHex } =
+  const {summary, workExperience, educations, colorHex } =
     resumeData;
   const accentColor = colorHex || "#dc2626";
 
