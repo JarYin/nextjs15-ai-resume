@@ -24,7 +24,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import LoadingButton from "@/components/LoadingButton";
-import {useReactToPrint} from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 import { resumeTemplates } from "../templates/registry";
 
 interface ResumeItemProps {
@@ -32,16 +32,29 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({
     contentRef,
     documentTitle: resume.title || "Resume",
-  }) 
+    pageStyle: `
+    @page {
+      size: auto;
+      margin: 0mm;
+    }
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  `,
+  });
   const wasUpdated = resume.updatedAt !== resume.createdAt;
 
-  const templateId = (resume.templateId || "modern-1") as keyof typeof resumeTemplates;
-  const TemplateComponent = resumeTemplates[templateId] || resumeTemplates["modern-1"];
+  const templateId = (resume.templateId ||
+    "modern-1") as keyof typeof resumeTemplates;
+  const TemplateComponent =
+    resumeTemplates[templateId] || resumeTemplates["modern-1"];
 
   const resumeDataValues = mapToResumeValues(resume);
   return (
@@ -71,7 +84,6 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             contentRef={contentRef}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
         </Link>
         <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
       </div>
@@ -107,7 +119,10 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
             <Trash2 className="size-4" />
             Delete
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2" onClick={onPrintClick}>
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+            onClick={onPrintClick}
+          >
             <Printer className="size-4" />
             Print
           </DropdownMenuItem>
