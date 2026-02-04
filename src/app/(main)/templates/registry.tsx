@@ -11,4 +11,7 @@ export const resumeTemplates = {
   "pro-1": dynamic(() => import("./ProOneTemplate"), {
     loading: () => <Skeleton />,
   }),
+  "creative-1": dynamic(() => import("./CreativeOneTemplate"), {
+    loading: () => <Skeleton />,
+  }),
 };
